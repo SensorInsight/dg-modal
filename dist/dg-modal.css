@@ -1,0 +1,141 @@
+body{
+  margin:0;
+  padding:0;
+
+}
+
+
+.page.freeze{
+  position: absolute;
+  overflow: hidden;
+}
+
+
+/*Map Action Sheet*/
+.map-action-sheet{
+  font-size: medium;
+  display:none;
+  width: 100%;
+  background: white;
+  height: 70vh;
+  position: absolute;
+  box-shadow: 0 0 6px 2px rgba(0,0,0,.1);
+  z-index:1;
+  bottom: -200vh;
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(.17, .67, 0.83, .67);
+}
+
+.map-action-sheet.show{
+  display:block;
+}
+
+.map-action-sheet.display{
+  bottom: 0;
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  z-index:1000;
+}
+
+
+.map-action-sheet-content{
+  padding:10px;
+  height: 60vh;
+}
+
+
+
+
+
+
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+  /* Styles */
+  .map-action-sheet{
+    height: 100vh;
+  }
+}
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+  /* Styles */
+  .map-action-sheet{
+    height: 100vh;
+  }
+}
+
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+
+
+  .map-action-sheet{
+    height: 100vh;
+  }
+
+
+}
+
+
+/* Smartphones (landscape) ----------- */
+@media  screen
+and (max-width : 600px) {
+
+  .map-action-sheet{
+    height: 100vh;
+  }
+
+}
+
+
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width : 320px) {
+
+  .map-action-sheet{
+    height: 100vh;
+  }
+
+}
+
+/* Desktops and laptops ----------- */
+@media only screen
+and (min-width : 1224px) {
+  /* Styles */
+}
+
+/* Large screens ----------- */
+@media only screen
+and (min-width : 1824px) {
+  /* Styles */
+
+  #dash-chart{
+    height: 500px;
+  }
+}
+
+
+
+
+/*iPhone 4  - iPhone6 - * Retina*/
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+  .map-action-sheet{
+    height: 100vh;
+  }
+
+}
+
+
+
