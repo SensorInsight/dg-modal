@@ -9,7 +9,7 @@ angular.module('dgModal').service('dgModal', ['$document','$timeout',
 
         $timeout(function(){
           angular.element(document.querySelector('.map-action-sheet')).addClass('display');
-        },10);
+        },50);
 
       };
 
@@ -21,7 +21,7 @@ angular.module('dgModal').service('dgModal', ['$document','$timeout',
           angular.element(document.querySelector('.page')).removeClass('freeze');
         },100);//needs a lil longer to properly let animations dismiss before removing
       };
-
+     
     }
 ]);
 

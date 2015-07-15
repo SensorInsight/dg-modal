@@ -119,9 +119,6 @@ and (min-width : 1224px) {
 and (min-width : 1824px) {
   /* Styles */
 
-  #dash-chart{
-    height: 500px;
-  }
 }
 
 
