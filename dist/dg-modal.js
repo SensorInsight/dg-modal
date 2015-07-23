@@ -1,25 +1,34 @@
 angular.module('dgModal', []);
 
-angular.module('dgModal').service('dgModal', ['$document','$timeout',
-    function($document, $timeout){
+angular.module('dgModal').service('dgModal', ['$document','$timeout','$q',
+    function($document, $timeout, $q){
 
       this.display = function(){
+        var deferred = $q.defer();
+        
         angular.element(document.querySelector('.page')).addClass('freeze');
         angular.element(document.querySelector('.map-action-sheet')).addClass('show');
 
         $timeout(function(){
           angular.element(document.querySelector('.map-action-sheet')).addClass('display');
+          deferred.resolve();
         },50);
-
+        
+        return deferred.promise
       };
 
       this.close = function(){
+        var deferred = $q.defer();
+        
         angular.element(document.querySelector('.map-action-sheet')).removeClass('display');
 
         $timeout(function(){
           angular.element(document.querySelector('.map-action-sheet')).removeClass('show');
           angular.element(document.querySelector('.page')).removeClass('freeze');
+          deferred.resolve();
         },100);//needs a lil longer to properly let animations dismiss before removing
+        
+        return deferred.promise
       };
      
     }

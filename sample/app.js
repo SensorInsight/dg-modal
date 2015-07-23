@@ -11,7 +11,10 @@ function($scope, dgModal){
     };
 
     $scope.close = function(){
-        dgModal.close();
+        dgModal.close()
+            .then(function(){
+                alert('Closed the Modal!')
+            })
     };
 
 
