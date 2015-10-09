@@ -8,7 +8,7 @@ angular.module('dgModal').service('dgModal', ['$document','$timeout','$q','$wind
 
         //reset position to center for desktop
         if($window.innerWidth >= 1224){
-          angular.element(document.querySelector('.dg-modal')).css({ "top": "20%","left":"20%" });
+          angular.element(document.querySelector('.dg-modal')).css({ "top": "11%","left":"20%" });
         }
 
 
@@ -89,7 +89,7 @@ angular.module('dgModal').directive('draggable', ['$document' , '$window', '$log
         var startX, startY, initialMouseX, initialMouseY;
 
         if($window.innerWidth >= 1224){
-          var modal = elm.parent().parent();
+          var modal = elm.parent().parent().parent();
 
 
           //elm.css({position: 'absolute'});
