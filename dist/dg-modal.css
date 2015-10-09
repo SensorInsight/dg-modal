@@ -41,7 +41,8 @@ body{
 
 
 .map-action-sheet-content{
-  height: 90vh;
+  height: auto;
+  width:100%;
 }
 
 
