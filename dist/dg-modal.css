@@ -14,6 +14,7 @@ body{
 /*Map Action Sheet*/
 .map-action-sheet{
   font-size: medium;
+  overflow: hidden;
   display:none;
   width: 100%;
   background: white;
@@ -40,12 +41,8 @@ body{
 
 
 .map-action-sheet-content{
-  height: 60vh;
+  height: 90vh;
 }
-
-
-
-
 
 
 
@@ -107,7 +104,6 @@ and (min-width : 1224px) {
     right:20%;
     opacity: 0;
     display: none;
-
   }
 
 
