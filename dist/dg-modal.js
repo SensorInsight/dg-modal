@@ -1,16 +1,22 @@
 angular.module('dgModal', []);
 
-angular.module('dgModal').service('dgModal', ['$document','$timeout','$q',
-    function($document, $timeout, $q){
+angular.module('dgModal').service('dgModal', ['$document','$timeout','$q','$window',
+    function($document, $timeout, $q, $window){
 
       this.display = function(){
         var deferred = $q.defer();
-        
+
+        //reset position to center for desktop
+        if($window.innerWidth >= 1224){
+          angular.element(document.querySelector('.dg-modal')).css({ "top": "20%","left":"20%" });
+        }
+
+
         angular.element(document.querySelector('.page')).addClass('freeze');
-        angular.element(document.querySelector('.map-action-sheet')).addClass('show');
+        angular.element(document.querySelector('.dg-modal')).addClass('show');
 
         $timeout(function(){
-          angular.element(document.querySelector('.map-action-sheet')).addClass('display');
+          angular.element(document.querySelector('.dg-modal')).addClass('display');
           deferred.resolve();
         },50);
         
@@ -20,10 +26,10 @@ angular.module('dgModal').service('dgModal', ['$document','$timeout','$q',
       this.close = function(){
         var deferred = $q.defer();
         
-        angular.element(document.querySelector('.map-action-sheet')).removeClass('display');
+        angular.element(document.querySelector('.dg-modal')).removeClass('display');
 
         $timeout(function(){
-          angular.element(document.querySelector('.map-action-sheet')).removeClass('show');
+          angular.element(document.querySelector('.dg-modal')).removeClass('show');
           angular.element(document.querySelector('.page')).removeClass('freeze');
           deferred.resolve();
         },100);//needs a lil longer to properly let animations dismiss before removing
@@ -41,7 +47,7 @@ angular.module('dgModal').directive('dgModal', ['$log','$http','$compile','$docu
       scope:{
         content: '@'
       },
-      template: '<div class=\'map-action-sheet \'><div class=\'map-action-sheet-content\'></div></div>',
+      template: '<div class=\'dg-modal \'><div class=\'dg-modal-content\'></div></div>',
       replace: true,
       link:function(scope, elm, attrs){
 
@@ -60,7 +66,7 @@ angular.module('dgModal').directive('dgModal', ['$log','$http','$compile','$docu
         }else{
 
           $http.get(scope.content).then(function (htmlTemplate) {
-            var tmp = angular.element(document.querySelector('.map-action-sheet-content')).html(htmlTemplate.data);
+            var tmp = angular.element(document.querySelector('.dg-modal-content')).html(htmlTemplate.data);
             $compile(tmp)(scope);
           }, function(err){
             $log.error(err);
@@ -74,3 +80,54 @@ angular.module('dgModal').directive('dgModal', ['$log','$http','$compile','$docu
     }
   }
 ]);
+
+angular.module('dgModal').directive('draggable', ['$document' , '$window', '$log',
+  function($document, $window, $log) {
+    return {
+      restrict: 'A',
+      link: function(scope, elm, attrs) {
+        var startX, startY, initialMouseX, initialMouseY;
+
+        if($window.innerWidth >= 1224){
+          var modal = elm.parent().parent();
+
+
+          //elm.css({position: 'absolute'});
+          elm.css({cursor:'move'});
+
+   
+          elm.bind('mousedown', function($event) {
+            $event.preventDefault();
+            startX = elm.prop('offsetLeft');
+            startY = elm.prop('offsetTop');
+            initialMouseX = $event.clientX;
+            initialMouseY = $event.clientY;
+            $document.bind('mousemove', mousemove);
+            $document.bind('mouseup', mouseup);
+            return false;
+          });
+   
+          function mousemove($event) {
+            var dx = $event.clientX - initialMouseX;
+            var dy = $event.clientY - initialMouseY;
+            modal.css({
+              top:  startY + dy + 'px',
+              left: startX + dx + 'px',
+            });
+            return false;
+          }
+   
+          function mouseup() {
+            $document.unbind('mousemove', mousemove);
+            $document.unbind('mouseup', mouseup);
+          }
+        }else{
+          $log.info('disabling modal dragging for desktop');
+          return
+        }
+
+
+
+      }
+    };
+  }]);

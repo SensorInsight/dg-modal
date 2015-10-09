@@ -8,11 +8,12 @@ body{
 .page.freeze{
   position: absolute;
   overflow: hidden;
+  overflow-y:hidden;
 }
 
 
 /*Map Action Sheet*/
-.map-action-sheet{
+.dg-modal{
   font-size: medium;
   overflow: hidden;
   display:none;
@@ -28,19 +29,18 @@ body{
   transition-timing-function: cubic-bezier(.17, .67, 0.83, .67);
 }
 
-.map-action-sheet.show{
+.dg-modal.show{
   display:block;
 }
 
-.map-action-sheet.display{
+.dg-modal.display{
   bottom: 0;
   transition-property: all;
   transition-duration: .5s;
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 
-
-.map-action-sheet-content{
+.dg-modal-content{
   height: auto;
   width:100%;
 }
@@ -98,7 +98,8 @@ and (max-width : 320px) {
 @media only screen
 and (min-width : 1224px) {
   /* Styles */
-  .map-action-sheet{
+  
+  .dg-modal{
     height:400px;
     width:60%;
     left:20%;
@@ -108,7 +109,7 @@ and (min-width : 1224px) {
   }
 
 
-  .map-action-sheet.display{
+  .dg-modal.display{
     
     bottom: 20%;
     display: flex;
