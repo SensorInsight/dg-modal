@@ -3,12 +3,43 @@ angular.module('dgModal', []);
 angular.module('dgModal').service('dgModal', ['$document','$timeout','$q','$window',
     function($document, $timeout, $q, $window){
 
-      this.display = function(){
+      var self = this;
+      self.style = null;
+
+      self.setStyle = function(style){
+        self.style = style;
+      }
+
+      self.display = function(){
         var deferred = $q.defer();
 
         //reset position to center for desktop
         if($window.innerWidth >= 1224){
-          angular.element(document.querySelector('.dg-modal')).css({ "top": "11%","left":"20%" });
+
+          switch(self.style){
+            case 'fromLeft':
+              self.css = {
+                "top": "0",
+                "left":"0",
+                "height":"100%",
+                "width":"600px"
+              }
+              break;
+            case 'center':
+              self.css = {
+                "top": "11%",
+                "left":"20%",
+              }
+              break;
+            default:
+              self.css = {
+                "top": "11%",
+                "left":"20%",
+              }
+          }
+
+          angular.element(document.querySelector('.dg-modal')).css(self.css);          
+
         }
 
 
@@ -23,7 +54,7 @@ angular.module('dgModal').service('dgModal', ['$document','$timeout','$q','$wind
         return deferred.promise
       };
 
-      this.close = function(){
+      self.close = function(){
         var deferred = $q.defer();
         
         angular.element(document.querySelector('.dg-modal')).removeClass('display');
@@ -45,11 +76,16 @@ angular.module('dgModal').directive('dgModal', ['$log','$http','$compile','$docu
     return{
       restrict: 'EA',
       scope:{
-        content: '@'
+        content: '@',
+        enter: '=enter'
       },
       template: '<div class=\'dg-modal \'><div class=\'dg-modal-content\'></div></div>',
       replace: true,
       link:function(scope, elm, attrs){
+
+        if(scope.enter){
+          dgModal.setStyle(scope.enter);
+        }
 
         //display action sheet
         scope.closeActionSheet = function () {
