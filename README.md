@@ -4,8 +4,6 @@ A simple responsive modal
 
 ##Installation  
 
-dg-redmine uses [angular-local-forage](https://github.com/ocombe/angular-localForage) and will need to be included in your index.html 
-
 ```
 
 <link rel="stylesheet" type="text/css" href="path/to/dg-redmine/dist/dg-modal.css"/>
