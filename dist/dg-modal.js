@@ -22,7 +22,6 @@ angular.module('dgModal').service('dgModal', ['$document','$timeout','$q','$wind
                 "top": "0",
                 "left":"0",
                 "height":"100%",
-                "width":"500px"
               }
               break;
             case 'center':
