@@ -70,13 +70,14 @@ angular.module('dgModal').service('dgModal', ['$document','$timeout','$q','$wind
     }
 ]);
 
-angular.module('dgModal').directive('dgModal', ['$log','$http','$compile','$document','dgModal',
-  function($log, $http, $compile, $document, dgModal){
+angular.module('dgModal').directive('dgModal', ['$log','$http','$compile','$document','dgModal','$templateCache',
+  function($log, $http, $compile, $document, dgModal, $templateCache){
     return{
       restrict: 'EA',
       scope:{
         content: '@',
-        enter: '=enter'
+        enter: '=enter',
+        useCache: '='
       },
       template: '<div class=\'dg-modal \'><div class=\'dg-modal-content\'></div></div>',
       replace: true,
@@ -100,12 +101,19 @@ angular.module('dgModal').directive('dgModal', ['$log','$http','$compile','$docu
           return
         }else{
 
-          $http.get(scope.content).then(function (htmlTemplate) {
-            var tmp = angular.element(document.querySelector('.dg-modal-content')).html(htmlTemplate.data);
+          if(scope.useCache){
+            var tmp = $templateCache.get(scope.content);
             $compile(tmp)(scope);
-          }, function(err){
-            $log.error(err);
-          })
+          }else{
+            $http.get(scope.content).then(function (htmlTemplate) {
+              var tmp = angular.element(document.querySelector('.dg-modal-content')).html(htmlTemplate.data);
+              $compile(tmp)(scope);
+            }, function(err){
+              $log.error(err);
+            })
+          }
+
+          
 
 
         }
