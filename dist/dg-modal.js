@@ -102,7 +102,8 @@ angular.module('dgModal').directive('dgModal', ['$log','$http','$compile','$docu
         }else{
 
           if(scope.useCache){
-            var tmp = $templateCache.get(scope.content);
+            var htmlTemplate = $templateCache.get(scope.content);
+            var tmp = angular.element(document.querySelector('.dg-modal-content')).html(htmlTemplate);
             $compile(tmp)(scope);
           }else{
             $http.get(scope.content).then(function (htmlTemplate) {
