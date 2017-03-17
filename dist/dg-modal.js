@@ -97,8 +97,8 @@ angular.module('dgModal').directive('dgModal', ['$log','$http','$compile','$docu
             dgModal.display()
         };
 
-        if(!scope.content){
-          $log.error('You have not specified any content for the action sheet');
+        if(!scope.content && !scope.component){
+          $log.error('You have not specified a component or content template for the action sheet');
           return
         }else{
 
