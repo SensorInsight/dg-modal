@@ -76,6 +76,7 @@ angular.module('dgModal').directive('dgModal', ['$log','$http','$compile','$docu
       restrict: 'EA',
       scope:{
         content: '@',
+        component: '@',
         enter: '=enter',
         useCache: '='
       },
@@ -105,7 +106,13 @@ angular.module('dgModal').directive('dgModal', ['$log','$http','$compile','$docu
             var htmlTemplate = $templateCache.get(scope.content);
             var tmp = angular.element(document.querySelector('.dg-modal-content')).html(htmlTemplate);
             $compile(tmp)(scope);
-          }else{
+          }else if(scope.component && !scope.content){
+            var component = "<" + scope.component + "></"+ scope.component +">";
+            
+            var tmp = angular.element(document.querySelector('.dg-modal-content')).html(component);
+            $compile(tmp)(scope);
+
+        }else if(scope.content && !scope.component){
             $http.get(scope.content).then(function (htmlTemplate) {
               var tmp = angular.element(document.querySelector('.dg-modal-content')).html(htmlTemplate.data);
               $compile(tmp)(scope);
